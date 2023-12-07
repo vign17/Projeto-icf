@@ -41,7 +41,7 @@ scene.height=700
 #Criando o modelo do foguete
 r=30000.0                               #Raio da cilindro (corpo)
 proj=cylinder(pos=vector(0,0,Re), radius = r, axis=vector(0,0,200000), color=color.white, make_trail= True, trail_color=vector(1,0,0), trail_radius=10000)
-nozzle=cone(pos=vector(0,0,Re+200000), radius = r, axis=vector(0,0,10000), color=color.white)
+nozzle=cone(pos=vector(0,0,Re+200000), radius = r, axis=vector(0,0,100000), color=color.white)
 base=cone(pos=vector(0,0,Re), radius = r+10000, axis=vector(0,0,10000), color=color.black)
 
 #Criando a Terra e inclinando de forma que Belo Horizonte esteja no centro do sistema de coordenadas
@@ -95,7 +95,6 @@ for i in range(0,int(time_launch/100)):
     
     #Atualização da posição do foguete
     proj.pos = vector(x,0,y)
-    nozzle.pos = vector(x,0,y+200000)
     base.pos = vector(x,0,y)
 
     #Rotação do foguete, apartir do segundo índice pois é preciso uma posição anterior
@@ -143,7 +142,6 @@ while True:
 
     #Atualização da posição do foguete
     proj.pos = vector(x,0,y)
-    nozzle.pos = vector(x,0,y+200000)
     base.pos=vector(x,0,y)
 
     #Rotação do foguete, a partir do segundo índice pois a primeira posição foi armazenada como 0 por padrão
