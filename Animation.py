@@ -83,9 +83,12 @@ time_orb=len(posicoesY2)
 
 #Switch para indicar passagem pela atmosfera
 verif_atm=True
+
+#Laço do lançamento
 for i in range(0,int(time_launch/100)):
     rate(1000)
-    #Definição das coordenadas do foguete
+
+    #Mudança do sistema de coordenadas
     alfa=angulo(float(posicoesX[i*100]))
     x=turnx(alfa,float(posicoesY[i*100])+Re)
     y=turny(alfa,float(posicoesY[i*100])+Re)
@@ -101,17 +104,18 @@ for i in range(0,int(time_launch/100)):
         Vx=x-turnx(alfa,float(posicoesY[i*100-1]))
         Vy=y-turny(alfa,float(posicoesY[i*100-1]))
 
-        #Aproxiamção dos senos e cossenos entre o vetor velocidade e os eixos coordenados
+        #Aproximação dos senos e cossenos entre o vetor velocidade e os eixos coordenados
         axz=Vy/(Vx**2+Vy**2)**0.5
         axx=Vx/(Vx**2+Vy**2)**0.5
 
-        #Atualição do eixo do foguete e rotação do mesmo
+        #Atualização do eixo do foguete e de sua rotação
         proj.axis=vector(200000*axz,0,-200000*axx)
         nozzle.axis=vector(100000*axz,0,-100000*axx)
         base.axis=vector(100000*axz,0,-100000*axx)
         nozzle.pos=vector(x+200000*axz,0,y-200000*axx)
 
-    #Avisos referenetes a momentos analisados através dos gráficos e códigos do programa anterior
+    #Avisos referentes a momentos analisados através dos gráficos e códigos do programa anterior
+    #Verifica o estágio do foguete e se passou a atmosfera
     if(mag(proj.pos)-Re>50000) and verif_atm==True:
         scene.append_to_caption("\nO foguete passou pela atmosfera terrestre")
         verif_atm=False
@@ -129,9 +133,10 @@ for i in range(0,int(time_launch/100)):
 verif_orb=True
 i=1
 
-#Ciclo da órbita
+#Laço da órbita
 while True:
     rate(1000)
+    
     #Definição das coordenadas do foguete
     x=float(posicoesX2[i*100])
     y=float(posicoesY2[i*100])
@@ -141,17 +146,17 @@ while True:
     nozzle.pos = vector(x,0,y+200000)
     base.pos=vector(x,0,y)
 
-    #Rotação do foguete, apartir do segundo índice pois a primeira posição foi armazenada como 0 por padrão
+    #Rotação do foguete, a partir do segundo índice pois a primeira posição foi armazenada como 0 por padrão
     if(i>2):
         #Deslocamentos em relação ao eixos coordenados
         Vx=float(posicoesX2[i*100])-float(posicoesX2[i*100-1])
         Vy=float(posicoesY2[i*100])-float(posicoesY2[i*100-1])
 
-        #Aproxiamção dos senos e cossenos entre o vetor velocidade e os eixos coordenados
+        #Aproximação dos senos e cossenos entre o vetor velocidade e os eixos coordenados
         axz=Vy/(Vx**2+Vy**2)**0.5
         axx=Vx/(Vx**2+Vy**2)**0.5
 
-        #Atualição do eixo do foguete e rotação do mesmo
+        #Atualização do eixo do foguete e de sua rotação
         proj.axis=vector(200000*axx,0,200000*axz)
         nozzle.axis=vector(100000*axx,0,100000*axz)
         base.axis=vector(100000*axx,0,100000*axz)
